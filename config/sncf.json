@@ -1,0 +1,54 @@
+{
+  "model": {
+    "_structure": {
+      "trips": {
+        "code": "#block-travel td>table.block-pnr .pnr-ref span",
+        "name": "#block-travel td>table.block-pnr .pnr-name span",
+        "details": {
+          "price": "#block-payment .transaction-details td[2]",
+          "roundTrips": [{
+            "_find": "#block-command table.product-details",
+            "_set": {
+              "type": ".travel-way",
+              "trains": [{
+                "departureTime": ".origin-destination-hour.segment-departure",
+                "departureStation": ".origin-destination-station.segment-departure",
+                "arrivalTime": ".origin-destination-hour.segment-arrival",
+                "arrivalStation": ".origin-destination-station.segment-arrival",
+                "type": "td[4]",
+                "number": "td[5]"
+              }]
+            }
+          }]
+        }
+      },
+      "custom": {
+        "prices": [{
+          "_find": "#block-command table.product-header",
+          "_set": "td[7]"
+        }, {
+          "_find": "#bloc-card-product",
+          "_set": ".amount"
+        }]
+      }
+    },
+    "_types": [{
+        "_data": "string",
+        "_type": "money",
+        "_path": "trips.details.price"
+      },
+      {
+        "_data": "array",
+        "_type": "money",
+        "_path": "custom.prices",
+        "_key": "value"
+      },
+      {
+        "_data": "array",
+        "_type": "int",
+        "_path": "trips.details.roundTrips",
+        "_key": "trains[0].number"
+      }
+    ]
+  }
+}

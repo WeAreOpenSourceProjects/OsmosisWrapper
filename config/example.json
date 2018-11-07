@@ -1,0 +1,21 @@
+{
+  "model": {
+    "_structure": {
+      "article": ".title",
+      "comments": [{
+        "_find": ".comment",
+        "_set": {
+          "author": ".author",
+          "message": ".message",
+          "date": ".date"
+        }
+      }]
+    },
+    "_types": [{
+      "_data": "array",
+      "_type": "timestamp",
+      "_path": "comments",
+      "_key": "date"
+    }]
+  }
+}
